@@ -1,8 +1,12 @@
 const aiTextCompression = require("../AI/aiTextCompression");
+const mongoose = require('mongoose');
+const postSchema = require("../schema/postSchema");
 
 const scraperObject = {
     url: 'https://3dprint.com/category/3d-printing-materials',
     async scraper(browser) {
+        await mongoose.connect(`mongodb+srv://${process.env.MONGOOSE_USER}:${process.env.MONGOOSE_PASS}@${process.env.MONGOOSE_DBNAME}.rqcdzyy.mongodb.net/`);
+
         let page = await browser.newPage();
 
         console.log(`Navigating to ${this.url}...`);
@@ -27,8 +31,20 @@ const scraperObject = {
 
             dataObj['newsTitle'] = await newPage.$eval('.article__title', text => text.textContent);
 
+            const postModel = await mongoose.model('PostItems', postSchema);
+
             if (dataObj['newsTitle'].indexOf('Briefs') !== -1) {
                 await newPage.close();
+
+                resolve(null);
+
+                return;
+            }
+
+            if (await postModel.exists({ url: link }) !== null) {
+                await newPage.close();
+
+                console.log('Такой пост уже существует');
 
                 resolve(null);
 
@@ -50,16 +66,8 @@ const scraperObject = {
         });
 
         for (link in urls) {
-            for (usedLink in usedUrls) {
-                if(urls[link] === usedLink) {
-                    console.log('Сообщение уже было отправлено');
-                    return 0;
-                }
-            } 
 
             let currentPageData = await pagePromise(urls[link]);
-
-            console.log('1');
 
             await aiTextCompression(currentPageData, urls[link]);
         }

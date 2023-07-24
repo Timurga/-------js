@@ -7,6 +7,4 @@ let browserInstance = browserObject.startBrowser();
 
 // Pass the browser instance to the scraper controller
 
-setInterval(() => scraperController(browserInstance), 120000);
-
-setTimeout(() => console.log(Date.UTC(0, 0, 0, 0, 2), 120000));
+scraperController(browserInstance), 120000;

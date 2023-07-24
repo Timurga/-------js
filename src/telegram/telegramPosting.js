@@ -1,10 +1,13 @@
+const mongoose = require('mongoose');
 const { Telegram } = require('telegraf');
+const postSchema = require('../schema/postSchema');
 
 const telegramPosting = async (message, image, link) => {
     const telegram = new Telegram(process.env.TELEGRAM_BOT_API);
 
-    const text = 
-    `
+    const postModel = await mongoose.model('PostItems', postSchema);
+
+    const text = `
     ${message}
                     <a href="${image}">ㅤ</a>
 <a href="${link}">Источник</a>
@@ -18,6 +21,8 @@ const telegramPosting = async (message, image, link) => {
         .catch(e => {
             console.log(e);
         });
+
+    await postModel.create({ url: link });
     
 }
 module.exports = telegramPosting;

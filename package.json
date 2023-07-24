@@ -3,6 +3,7 @@
     "axios": "^1.4.0",
     "deepl-node": "^1.10.2",
     "dotenv": "^16.3.1",
+    "mongoose": "^7.4.0",
     "openai": "^3.3.0",
     "puppeteer": "^20.8.2",
     "telegraf": "^4.12.2"
@@ -16,6 +17,5 @@
   },
   "author": "Timur Gaynutdinov",
   "license": "ISC",
-  "description": "News parser with text compression via ChatGPT, translation via Yandex Translator and subsequent auto-posting in the Telegram channel",
-  "devDependencies": {}
+  "description": "News parser with text compression via ChatGPT, translation via Yandex Translator and subsequent auto-posting in the Telegram channel"
 }
