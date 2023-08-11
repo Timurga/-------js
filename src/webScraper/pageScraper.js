@@ -1,6 +1,6 @@
 const aiTextCompression = require("../AI/aiTextCompression");
 const mongoose = require('mongoose');
-const postSchema = require("../schema/postSchema");
+const postSchema = require("../schema/PostSchema");
 
 const scraperObject = {
     url: 'https://3dprint.com/category/3d-printing-materials',

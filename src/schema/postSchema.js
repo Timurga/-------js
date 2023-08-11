@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const postSchema = new Schema({
+const PostSchema = new Schema({
     url: String
 });
 
-module.exports = postSchema;
+module.exports = PostSchema;

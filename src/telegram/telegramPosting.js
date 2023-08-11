@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Telegram } = require('telegraf');
-const postSchema = require('../schema/postSchema');
+const postSchema = require('../schema/PostSchema');
 
 const telegramPosting = async (message, image, link) => {
     const telegram = new Telegram(process.env.TELEGRAM_BOT_API);
